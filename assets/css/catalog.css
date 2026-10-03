@@ -19,26 +19,53 @@
     position: relative;
 }
 
-/* --- Поиск --- */
+/* ============================================
+   ПОИСК
+   ============================================ */
+
+/* Обёртка */
 .catalog-search {
+    position: relative;
     flex: 1 1 auto;
     min-width: 350px;
     max-width: 570px;
+    padding: 5px 8px;
+    border-radius: 12px;
+    border: 1px solid #E5E5E5;
+    transition: border-color 0.2s ease, border-radius 0.2s ease;
+}
+
+/* Форма (визуальное поле ввода) */
+.catalog-search__form {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 16px;
-    height: 47px;
+    padding: 14px 10px;
+    height: 37px;
     background: #fff;
-    border: 1px solid #E5E5E5;
+    border: none;
     border-radius: 12px;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, border-radius 0.2s ease, border-bottom-color 0.2s ease;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1;
 }
 
-.catalog-search:focus-within {
-    border-color: #737373;
+.catalog-search__form:focus-within {
+    background: #F5F5F5;
 }
+
+/* Фокус — рамка темнеет */
+.catalog-search:focus-within {
+}
+
+/* Когда открыт дропдаун — «слипаем»: убираем нижнюю границу и скругления */
+.catalog-search.is-open {
+    border-bottom-color: transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 
 .catalog-search__icon {
     color: #737373;
@@ -52,10 +79,107 @@
     background: transparent;
     font-size: 16px;
     font-family: inherit;
-    color: #737373;
+    min-width: 0;
 }
 
 .catalog-search__input::placeholder {
+    color: #737373;
+}
+
+/* Убираем нативную кнопку очистки у type=search */
+.catalog-search__input::-webkit-search-cancel-button,
+.catalog-search__input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Кнопка-крестик */
+.catalog-search__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: #737373;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+}
+
+.catalog-search__clear:hover {
+    color: #121419;
+}
+
+.catalog-search__clear[hidden] {
+    display: none;
+}
+
+/* ============================================
+   ДРОПДАУН С ПОДСКАЗКАМИ
+   ============================================ */
+
+/* Позиционируем вплотную к форме — без зазора,
+   чтобы визуально сливалось с полем ввода. */
+.catalog-search__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #E5E5E5;  
+    border-top: none;           
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 10px;
+    z-index: 0;                  
+    max-height: 320px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.catalog-search__dropdown[hidden] {
+    display: none;
+}
+
+.catalog-search__dropdown-title {
+    font-size: 14px;
+    color: #737373;
+    padding: 4px 12px 6px;
+    line-height: 1.3;
+    margin-bottom: 4px;
+}
+
+.catalog-search__dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.catalog-search__dropdown-item {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #121419;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.catalog-search__dropdown-item:hover,
+.catalog-search__dropdown-item.is-active {
+    background: #F5F5F5;
+}
+
+.catalog-search__dropdown-empty {
+    padding: 10px 12px;
+    font-size: 14px;
     color: #737373;
 }
 
@@ -98,7 +222,6 @@
 
 .catalog-filter__toggle:hover,
 .catalog-filter__toggle:focus {
-    border-color: #121419;
     outline: none;
 }
 
@@ -367,7 +490,6 @@
 }
 
 .catalog-price__input:focus {
-    border-color: #121419;
 }
 
 .catalog-price__input:disabled {
@@ -382,9 +504,8 @@
 }
 
 .catalog-price__apply {
-    align-self: center;
-    height: 48px;
-    padding: 0 28px;
+    align-items: left;
+    padding: 10px 20px;
     background: #121419;
     color: #fff;
     border: none;
@@ -437,33 +558,29 @@
     background: #F5F5F5;
 }
 
+/* Радио-кружок */
 .catalog-sort__radio {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid #B5B5B5;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #E5E5E5;
     border-radius: 50%;
     background: #fff;
-    position: relative;
-    transition: border-color 0.15s ease;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, border-width 0.15s ease;
 }
 
-.catalog-sort__radio::after {
-    content: '';
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #121419;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
+/* Hover на всю опцию сортировки — граница темнеет */
 .catalog-sort:hover .catalog-sort__radio {
+    border-color: #737373;
+}
+
+/* Выбрано — жирная граница #121419 (5px) */
+.catalog-sort.is-selected .catalog-sort__radio {
+    border-width: 5px;
     border-color: #121419;
 }
 

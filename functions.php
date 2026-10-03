@@ -175,6 +175,25 @@ function my_theme_localize_scripts(): void {
         'url' => admin_url( 'admin-ajax.php' ),
     ] );
 
+    // Список рекомендаций для поиска (первые 6 товаров).
+    if ( function_exists( 'wc_get_products' ) ) {
+        $recommended = wc_get_products( [
+            'limit'   => 6,
+            'orderby' => 'popularity',
+            'order'   => 'DESC',
+            'status'  => 'publish',
+        ] );
+
+        $search_suggestions = array_map( function ( $product ) {
+            return [
+                'title' => $product->get_name(),
+                'url'   => $product->get_permalink(),
+            ];
+        }, $recommended );
+
+        wp_localize_script( MY_THEME_SCRIPT_HANDLE, 'catalog_search_suggestions', $search_suggestions );
+    }
+
     if ( is_admin() || ! function_exists( 'WC' ) || ! WC()->cart ) {
         return;
     }

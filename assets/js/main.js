@@ -13,6 +13,7 @@ import './modules/menu-highlight.js';
 import './modules/catalog-filters.js';
 import './modules/catalog-chips.js';
 import './modules/catalog-ajax.js';
+import './modules/catalog-search.js';
 
 import './modules/product-gallery.js';
 

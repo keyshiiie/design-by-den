@@ -46,20 +46,44 @@ $active_search    = sanitize_text_field( my_theme_get_string( $_GET['search'] ??
         <div class="catalog-toolbar reveal reveal--fade">
 
             <!-- 3.1 Поиск -->
-            <form role="search" method="get" class="catalog-search" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-                <input type="hidden" name="post_type" value="product">
-                <svg class="catalog-search__icon" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M8.14591 14.875C11.8623 14.875 14.8751 11.8622 14.8751 8.14579C14.8751 4.42938 11.8623 1.41663 8.14591 1.41663C4.4295 1.41663 1.41675 4.42938 1.41675 8.14579C1.41675 11.8622 4.4295 14.875 8.14591 14.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M15.5834 15.5833L14.1667 14.1666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <input
-                    type="search"
-                    class="catalog-search__input"
-                    placeholder="<?php esc_attr_e( 'Поиск по названию или ключевым словам...', MY_THEME_TEXTDOMAIN ); ?>"
-                    name="s"
-                    value="<?php echo esc_attr( $active_search ); ?>"
-                >
-            </form>
+            <div class="catalog-search" data-catalog-search>
+                <form role="search" method="get" class="catalog-search__form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input type="hidden" name="post_type" value="product">
+
+                    <svg class="catalog-search__icon" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M8.14591 14.875C11.8623 14.875 14.8751 11.8622 14.8751 8.14579C14.8751 4.42938 11.8623 1.41663 8.14591 1.41663C4.4295 1.41663 1.41675 4.42938 1.41675 8.14579C1.41675 11.8622 4.4295 14.875 8.14591 14.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15.5834 15.5833L14.1667 14.1666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <input
+                        type="search"
+                        class="catalog-search__input"
+                        placeholder="<?php esc_attr_e( 'Поиск по названию или ключевым словам...', MY_THEME_TEXTDOMAIN ); ?>"
+                        name="s"
+                        value="<?php echo esc_attr( $active_search ); ?>"
+                        autocomplete="off"
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-controls="catalog-search-dropdown"
+                    >
+
+                    <button type="button"
+                            class="catalog-search__clear"
+                            aria-label="<?php esc_attr_e( 'Очистить поиск', MY_THEME_TEXTDOMAIN ); ?>"
+                            hidden>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M10.75 0.75L0.75 10.75M0.75 0.75L10.75 10.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="catalog-search__dropdown" id="catalog-search-dropdown" hidden>
+                    <div class="catalog-search__dropdown-title">
+                        <?php esc_html_e( 'Рекомендации', MY_THEME_TEXTDOMAIN ); ?>
+                    </div>
+                    <ul class="catalog-search__dropdown-list" role="listbox"></ul>
+                </div>
+            </div>
 
             <!-- 3.2 Фильтры-селекты -->
             <div class="catalog-filters">
