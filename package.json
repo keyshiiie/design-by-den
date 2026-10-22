@@ -9,5 +9,8 @@
     "@kucrut/vite-for-wp": "^0.12.0",
     "sass": "^1.106.1",
     "vite": "^7.3.6"
+  },
+  "dependencies": {
+    "swiper": "^14.3.0"
   }
 }

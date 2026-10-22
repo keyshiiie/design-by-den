@@ -7,28 +7,32 @@
 
 .bestsellers-wrap {
     position: relative;
+    width: 100%;              // ← важно: ограничиваем ширину
 }
 
-// Трек — обрезает уезжающие карточки
+// Swiper-контейнер
 .bestsellers-slider {
-    overflow: hidden;
-    padding-bottom: 2px;
-    margin-bottom: -2px;
+    &.swiper {
+        overflow: hidden;
+        padding-bottom: 2px;
+        margin-bottom: -2px;
+    }
 }
 
-.bestsellers-track {
-    display: flex;
-    gap: 30px;
-    transition: transform $transition-slow;
-    will-change: transform;
-}
-
+// Слайд
 .bestsellers-item {
-    flex: 0 0 auto;
-    box-sizing: border-box;
+    &.swiper-slide {
+        height: auto;
+        box-sizing: border-box;
+        display: flex;
+
+        > .product-card {
+            width: 100%;
+        }
+    }
 }
 
-// Стрелки
+// Стрелки — Swiper вешает .swiper-button-disabled вместо :disabled
 .slider-arrow {
     position: absolute;
     top: 40%;
@@ -45,11 +49,11 @@
     color: $color-black;
     padding: 0;
 
-    &:hover:not(:disabled) {
+    &:hover:not(.swiper-button-disabled) {
         background: $color-border;
     }
 
-    &:disabled {
+    &.swiper-button-disabled {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -65,12 +69,13 @@
     }
 }
 
-// Футер слайдера
+// Футер слайдера — ВАЖНО: width 100% + правильная структура
 .slider-footer {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;     
     margin-top: 24px;
+    width: 100%;         
 
     &__spacer {
         flex: 1;
@@ -78,27 +83,30 @@
     }
 }
 
-// Пагинация
+// Пагинация — Swiper создаёт .swiper-pagination-bullet
 .slider-pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 8px;
     flex: 0 0 auto;
     padding-top: 10px;
-    margin-top: 0;
-}
+    margin: 0;
 
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    border: 1px solid $color-text-muted;
-    border-radius: $radius-round;
-    padding: 0;
-    background: transparent;
-    cursor: pointer;
-    transition: background $transition-fast;
+    // Переопределяем дефолтные стили Swiper-точек
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        border: 1px solid $color-text-muted;
+        border-radius: $radius-round;
+        padding: 0;
+        background: transparent;
+        opacity: 1;
+        transition: background $transition-fast;
+        margin: 0 !important;
+    }
 
-    &.is-active {
+    .swiper-pagination-bullet-active {
         background: $color-text-muted;
     }
 }
@@ -108,4 +116,5 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    min-width: 0;          
 }

@@ -36,6 +36,8 @@
     align-items: stretch;
     gap: 0;
     font-size: 0;
+    white-space: nowrap; 
+    flex-shrink: 0;
 
     .btn {
         padding: 10px 20px;

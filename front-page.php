@@ -78,8 +78,9 @@ get_header();
                     </svg>
                 </button>
 
-                <div class="bestsellers-slider" data-per-view="3" data-gap="30">
-                    <div class="bestsellers-track">
+                <!-- Swiper -->
+                <div class="bestsellers-slider swiper">
+                    <div class="swiper-wrapper">
                         <?php
                         $args = array(
                             'post_type'      => 'product',
@@ -103,7 +104,7 @@ get_header();
                             while ( $bestsellers->have_posts() ) : $bestsellers->the_post();
                                 global $product;
                                 ?>
-                                <div class="bestsellers-item">
+                                <div class="bestsellers-item swiper-slide">
                                     <?php wc_get_template_part( 'content', 'product' ); ?>
                                 </div>
                                 <?php
