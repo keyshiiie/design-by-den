@@ -1,0 +1,61 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.btn {
+    @include button-base;
+
+    &-dark {
+        background: $color-dark;
+        color: $color-white;
+
+        &:hover {
+            background: $color-dark-hover;
+        }
+    }
+
+    &-outline {
+        background: transparent;
+        color: $color-dark;
+        border-color: $color-border;
+
+        &:hover {
+            background: $color-bg-light;
+        }
+    }
+
+    &-sm {
+        padding: 8px 16px;
+        font-size: 14px;
+        height: 40px;
+    }
+}
+
+// Composite button
+.composite-btn {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 0;
+    font-size: 0;
+
+    .btn {
+        padding: 10px 20px;
+
+        &-dark:hover {
+            background: $color-dark;
+        }
+    }
+
+    &:hover .btn-dark {
+        background: $color-dark-hover;
+    }
+
+    .btn-composite-arrow {
+        padding: 10px;
+
+        img {
+            display: block;
+            width: 14px;
+            height: 14px;
+        }
+    }
+}

@@ -1,0 +1,111 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.bestsellers-section {
+    padding: $section-padding 0;
+}
+
+.bestsellers-wrap {
+    position: relative;
+}
+
+// Трек — обрезает уезжающие карточки
+.bestsellers-slider {
+    overflow: hidden;
+    padding-bottom: 2px;
+    margin-bottom: -2px;
+}
+
+.bestsellers-track {
+    display: flex;
+    gap: 30px;
+    transition: transform $transition-slow;
+    will-change: transform;
+}
+
+.bestsellers-item {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+// Стрелки
+.slider-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 35px;
+    height: 35px;
+    border-radius: $radius-round;
+    border: 1px solid $color-border;
+    background: $color-white;
+    @include flex-center;
+    cursor: pointer;
+    transition: background $transition-fast, opacity $transition-fast, color $transition-fast;
+    color: $color-black;
+    padding: 0;
+
+    &:hover:not(:disabled) {
+        background: $color-border;
+    }
+
+    &:disabled {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity $transition-fast, visibility $transition-fast;
+    }
+
+    &--prev {
+        left: -45px;
+    }
+
+    &--next {
+        right: -45px;
+    }
+}
+
+// Футер слайдера
+.slider-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 24px;
+
+    &__spacer {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+// Пагинация
+.slider-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    padding-top: 10px;
+    margin-top: 0;
+}
+
+.slider-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid $color-text-muted;
+    border-radius: $radius-round;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: background $transition-fast;
+
+    &.is-active {
+        background: $color-text-muted;
+    }
+}
+
+// Кнопка «В каталог» справа
+.bestsellers-cta-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}

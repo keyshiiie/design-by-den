@@ -63,69 +63,19 @@ function my_theme_setup(): void {
 }
 add_action( 'after_setup_theme', 'my_theme_setup' );
 
-/* ============================================================
-   ПОДКЛЮЧЕНИЕ СТИЛЕЙ
-   ============================================================ */
-
 /**
- * Базовые стили — грузятся всегда.
+ * ПОДКЛЮЧЕНИЕ СТИЛЕЙ
  */
-function my_theme_enqueue_base_styles(): void {
-    $v = MY_THEME_VERSION;
-    $u = my_theme_uri();
-
-    wp_enqueue_style( 'main-style', get_stylesheet_uri(), [], $v );
-    wp_enqueue_style( 'base-style', "{$u}/assets/css/main.css", [], $v );
-
-    // Секции главной.
-    wp_enqueue_style( 'header-style',       "{$u}/assets/css/header.css",       [ 'base-style' ], $v );
-    wp_enqueue_style( 'hero-style',         "{$u}/assets/css/hero.css",         [ 'base-style' ], $v );
-    wp_enqueue_style( 'bestsellers-style',  "{$u}/assets/css/bestsellers.css",  [ 'base-style' ], $v );
-    wp_enqueue_style( 'why-us-style',       "{$u}/assets/css/why-us.css",       [ 'base-style' ], $v );
-    wp_enqueue_style( 'faq-style',          "{$u}/assets/css/faq.css",          [ 'base-style' ], $v );
-    wp_enqueue_style( 'cta-style',          "{$u}/assets/css/cta.css",          [ 'base-style' ], $v );
-    wp_enqueue_style( 'product-card-style', "{$u}/assets/css/product-card.css", [ 'base-style' ], $v );
-    wp_enqueue_style( 'footer-style',       "{$u}/assets/css/footer.css",       [ 'base-style' ], $v );
-}
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_base_styles' );
-
-/**
- * Стили корзины.
- */
-function my_theme_enqueue_cart_style(): void {
-    if ( ! function_exists( 'is_cart' ) || ! is_cart() ) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'cart-style',
-        my_theme_uri() . '/assets/css/cart.css',
-        [ 'base-style' ],
-        MY_THEME_VERSION
+function my_theme_enqueue_vite_styles(): void {
+    Vite\enqueue_asset(
+        get_template_directory() . '/assets/js/dist',
+        'assets/scss/main.scss',
+        [
+            'handle' => 'my-theme-styles',
+        ]
     );
 }
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_cart_style', 15 );
-
-/**
- * Условные стили: каталог и страница товара.
- */
-function my_theme_enqueue_contextual_styles(): void {
-    $u = my_theme_uri();
-    $v = MY_THEME_VERSION;
-
-    if ( ! function_exists( 'is_shop' ) ) {
-        return;
-    }
-
-    if ( is_shop() || is_product_category() || is_product_tag() ) {
-        wp_enqueue_style( 'catalog-style', "{$u}/assets/css/catalog.css", [ 'base-style' ], $v );
-    }
-
-    if ( is_product() ) {
-        wp_enqueue_style( 'product-single-style', "{$u}/assets/css/product-single.css", [ 'base-style' ], $v );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_contextual_styles', 15 );
+add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_vite_styles', 5 );
 
 /* ============================================================
    ПОДКЛЮЧЕНИЕ СКРИПТОВ (VITE)

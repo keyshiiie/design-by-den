@@ -1,0 +1,155 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.faq-section {
+    padding: $section-padding 0;
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .section-title {
+        font-size: $font-size-7xl;
+        font-weight: $font-weight-extrabold;
+        line-height: 1.1;
+        margin-bottom: 12px;
+        letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+        font-size: $font-size-base;
+        color: $color-text-muted;
+    }
+}
+
+// Список аккордеона — единая карточка
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    background: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    overflow: hidden;
+}
+
+// Элемент аккордеона
+.faq-item {
+    background: transparent;
+    border: none;
+    position: relative;
+
+    &:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: $color-border;
+    }
+
+    &:first-child {
+        border-top: none;
+    }
+
+    &[open] {
+        border-color: inherit;
+    }
+
+    // Вопрос (summary)
+    &__question {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 22px;
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $color-text;
+        cursor: pointer;
+        list-style: none;
+        transition: color $transition-fast, background $transition-fast;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::marker {
+            display: none;
+            content: '';
+        }
+
+        &:hover {
+            color: #555;
+            background: $color-bg-lighter;
+        }
+    }
+
+    // Иконка-шеврон
+    &__icon {
+        position: relative;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        transition: transform $transition-base;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid $color-text;
+            border-bottom: 2px solid $color-text;
+            transform: translate(-50%, -70%) rotate(45deg);
+            transition: transform $transition-base;
+        }
+    }
+
+    &[open] &__icon::before {
+        transform: translate(-50%, -30%) rotate(-135deg);
+    }
+
+    // Ответ
+    &__answer {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        padding: 0 20px;
+        transition:
+            max-height 0.4s $ease-smooth,
+            opacity 0.35s ease;
+        will-change: max-height, opacity;
+
+        p {
+            margin: 0;
+            color: $color-text-muted;
+            padding-bottom: 15px;
+
+            &:last-child {
+                padding-bottom: 15px;
+            }
+        }
+    }
+
+    &[open] &__answer {
+        opacity: 1;
+    }
+}
+
+@include respond-to($bp-lg) {
+    .faq-section .section-title {
+        font-size: $font-size-4xl;
+    }
+
+    .faq-item__question {
+        padding: 16px 20px;
+        font-size: 15px;
+    }
+
+    .faq-item__answer {
+        padding: 0 20px 16px;
+    }
+}

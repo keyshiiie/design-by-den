@@ -1,0 +1,83 @@
+// ============================================
+// ЦВЕТА
+// ============================================
+$color-black:         #000;
+$color-dark:          #121419;
+$color-dark-hover:    #454545;
+$color-text:          #1a1a1a;
+$color-text-muted:    #737373;
+$color-text-light:    #999;
+$color-text-lighter:  #B5B5B5;
+$color-white:         #fff;
+$color-bg-light:      #F5F5F5;
+$color-bg-lighter:    #FAFAFA;
+$color-border:        #E5E5E5;
+$color-border-hover:  #D5D5D5;
+
+$color-accent:        #62A4F6;
+$color-accent-bg:     rgba(98, 164, 246, 0.2);
+$color-accent-bg-alt: #D6E7FF;
+$color-accent-bg-hover: #C5DCFF;
+$color-accent-text:   #3B82F6;
+$color-danger:        #EC280B;
+$color-danger-alt:    #EF4444;
+
+// ============================================
+// ТИПОГРАФИКА
+// ============================================
+$font-family-base: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+$font-size-xs:    9px;
+$font-size-sm:    13px;
+$font-size-base:  16px;
+$font-size-md:    17px;
+$font-size-lg:    18px;
+$font-size-xl:    20px;
+$font-size-2xl:   24px;
+$font-size-3xl:   28px;
+$font-size-4xl:   32px;
+$font-size-5xl:   36px;
+$font-size-6xl:   42px;
+$font-size-7xl:   48px;
+$font-size-8xl:   64px;
+$font-size-9xl:   72px;
+
+$font-weight-regular: 400;
+$font-weight-medium:  500;
+$font-weight-semibold: 600;
+$font-weight-bold:    700;
+$font-weight-extrabold: 800;
+
+// ============================================
+// СКРУГЛЕНИЯ
+// ============================================
+$radius-sm:   8px;
+$radius-md:   12px;
+$radius-lg:   14px;
+$radius-xl:   15px;
+$radius-2xl:  24px;
+$radius-3xl:  25px;
+$radius-pill: 100px;
+$radius-round: 50%;
+
+// ============================================
+// ОТСТУПЫ
+// ============================================
+$container-max: 1140px;
+$section-padding: 75px;
+
+// ============================================
+// БРЕЙКПОИНТЫ
+// ============================================
+$bp-xl: 1024px;
+$bp-lg: 768px;
+$bp-md: 640px;
+$bp-sm: 600px;
+
+// ============================================
+// ПЕРЕХОДЫ
+// ============================================
+$transition-fast:   0.2s ease;
+$transition-base:   0.3s ease;
+$transition-slow:   0.4s ease;
+$ease-smooth:       cubic-bezier(0.4, 0, 0.2, 1);

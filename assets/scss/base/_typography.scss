@@ -1,0 +1,62 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// Шрифт
+@font-face {
+    font-family: 'Manrope';
+    src: url('../fonts/manrope/Manrope-VariableFont_wght.woff2') format('woff2-variations'),
+         url('../fonts/manrope/Manrope-VariableFont_wght.woff2') format('woff2'),
+         url('../fonts/manrope/Manrope-VariableFont_wght.woff') format('woff');
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+// Container
+.container {
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 0;
+}
+
+// Заголовок страницы (общий для catalog / cart / product)
+.page-title {
+    font-size: $font-size-8xl;
+    font-weight: $font-weight-extrabold;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: $color-dark;
+    margin-bottom: 24px;
+}
+
+// Section header
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: $color-accent-bg;
+    color: $color-accent;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: $font-size-7xl;
+    font-weight: $font-weight-extrabold;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+}
+
+.section-subtitle {
+    font-size: $font-size-base;
+    color: $color-text-muted;
+}

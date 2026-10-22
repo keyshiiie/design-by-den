@@ -8,6 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 global $product;
+$product = wc_get_product( get_the_ID() );
 
 if ( empty( $product ) || ! $product->is_visible() ) {
     return;

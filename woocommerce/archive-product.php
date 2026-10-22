@@ -299,29 +299,48 @@ $active_search    = sanitize_text_field( my_theme_get_string( $_GET['search'] ??
         <!-- 5. Сетка товаров -->
         <div class="catalog-results reveal reveal--fade" data-catalog-results>
 
-            <?php if ( woocommerce_product_loop() ) : ?>
+            <?php
+            $catalog_args  = my_theme_build_catalog_query_args();
+            $catalog_query = new WP_Query( $catalog_args );
+            ?>
+
+            <?php if ( $catalog_query->have_posts() ) : ?>
 
                 <?php
                 do_action( 'woocommerce_before_shop_loop' );
 
+                wc_set_loop_prop( 'total', $catalog_query->found_posts );
+                wc_set_loop_prop( 'per_page', MY_THEME_PRODUCTS_PER_PAGE );
+                wc_set_loop_prop( 'current_page', max( 1, (int) ( $_GET['paged'] ?? 1 ) ) );
+                wc_set_loop_prop( 'total_pages', $catalog_query->max_num_pages );
+                wc_set_loop_prop( 'is_paginated', $catalog_query->max_num_pages > 1 );
+
                 woocommerce_product_loop_start();
 
-                if ( wc_get_loop_prop( 'total' ) ) {
-                    while ( have_posts() ) {
-                        the_post();
-                        do_action( 'woocommerce_shop_loop' );
-                        wc_get_template_part( 'content', 'product' );
-                    }
+                while ( $catalog_query->have_posts() ) {
+                    $catalog_query->the_post();
+                    do_action( 'woocommerce_shop_loop' );
+                    wc_get_template_part( 'content', 'product' );
                 }
 
                 woocommerce_product_loop_end();
 
                 do_action( 'woocommerce_after_shop_loop' );
+
+                // Пагинация
+                my_theme_render_pagination(
+                    max( 1, (int) ( $_GET['paged'] ?? 1 ) ),
+                    $catalog_query->max_num_pages
+                );
+
+                wp_reset_postdata();
                 ?>
 
             <?php else : ?>
 
-                <?php do_action( 'woocommerce_no_products_found' ); ?>
+                <p class="catalog-empty">
+                    <?php esc_html_e( 'Товары не найдены.', MY_THEME_TEXTDOMAIN ); ?>
+                </p>
 
             <?php endif; ?>
 

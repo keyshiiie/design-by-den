@@ -1,0 +1,169 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.product-card {
+    position: relative;
+    background: $color-white;
+    border-radius: $radius-xl;
+    border: 1px solid $color-border;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 310px;
+    list-style: none;
+    margin: 0;
+    box-sizing: border-box;
+
+    // Обложка
+    &__image {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 215px;
+        overflow: hidden;
+        background: $color-bg-light;
+        border-radius: $radius-md;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform $ease-smooth;
+            display: block;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.35s ease;
+            pointer-events: none;
+        }
+    }
+
+    &:hover &__image::after {
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    &:hover &__image img {
+        transform: scale(1.03);
+    }
+
+    // Белая плашка
+    &__body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $color-white;
+        padding: 15px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+        border-radius: $radius-md $radius-md 0 0;
+        z-index: 2;
+        transition: bottom 0.35s ease;
+    }
+
+    &:hover &__body {
+        bottom: 60px;
+    }
+
+    &__row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &__title {
+        font-size: $font-size-md;
+        font-weight: $font-weight-bold;
+        line-height: 1.3;
+        margin: 0;
+        flex: 1;
+
+        a {
+            color: $color-text;
+            text-decoration: none;
+
+            &:hover {
+                color: #555;
+            }
+        }
+    }
+
+    &__excerpt {
+        font-size: $font-size-sm;
+        color: $color-text-muted;
+        line-height: 1.4;
+        @include truncate;
+    }
+
+    &__price {
+        font-size: 15px;
+        font-weight: $font-weight-bold;
+        color: $color-accent;
+        background-color: $color-accent-bg;
+        padding: 4px 10px;
+        border-radius: 26px;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        del {
+            color: $color-text-light;
+            font-weight: $font-weight-regular;
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        ins {
+            text-decoration: none;
+            color: $color-accent;
+        }
+    }
+
+    // Кнопки
+    &__buttons {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity $transition-base 0.1s, transform $transition-base 0.1s;
+        pointer-events: none;
+        z-index: 3;
+    }
+
+    &:hover &__buttons {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    &__cart-btn.is-in-cart {
+        background: $color-dark-hover;
+        color: $color-white;
+
+        &:hover {
+            background: $color-text;
+        }
+    }
+}
+
+.btn-sm {
+    padding: 12px 20px;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    text-align: center;
+    justify-content: center;
+    flex: 1;
+}
