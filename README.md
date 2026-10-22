@@ -64,9 +64,11 @@ design-by-den/
 ├── front-page.php          # Шаблон главной
 ├── archive-product.php     # Шаблон каталога
 └── single-product.php      # Шаблон товара
+```
 
 ## Демо
+<img width="2880" height="8194" alt="front" src="https://github.com/user-attachments/assets/f4b1c423-4a29-4d04-a013-67795ae5d213" />
+<img width="2880" height="3898" alt="catalog" src="https://github.com/user-attachments/assets/183df786-b5c2-4e94-a4bf-50116e135979" />
+<img width="2880" height="2416" alt="cart" src="https://github.com/user-attachments/assets/94da9ae6-441a-4d6a-8b69-16f03ef46294" />
 
-<img width="2880" height="3898" alt="catalog" src="https://github.com/user-attachments/assets/491f067d-3b29-4d12-8eaf-c9cfd7b2280e" />
-<img width="2880" height="8194" alt="front" src="https://github.com/user-attachments/assets/d0057cab-3d09-40b4-947c-559c3bf8be6a" />
-<img width="2880" height="2416" alt="cart" src="https://github.com/user-attachments/assets/b18dedc6-da5e-4af1-bb0a-5c44a7faabff" />
+
